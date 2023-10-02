@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarApp.Data\CarApp.Data.csproj" />
+  </ItemGroup>
+
 </Project>
