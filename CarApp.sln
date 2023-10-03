@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarApp.Web", "CarApp.Web\CarApp.Web.csproj", "{7FAA07FE-B3BB-4E79-9CA3-CFA0731BC0FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarApp.Web", "CarApp.Web\CarApp.Web.csproj", "{7FAA07FE-B3BB-4E79-9CA3-CFA0731BC0FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarApp.Core", "CarApp.Core\CarApp.Core.csproj", "{D76B3756-3DBA-44D6-8BBF-789E287B0BFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarApp.Core", "CarApp.Core\CarApp.Core.csproj", "{D76B3756-3DBA-44D6-8BBF-789E287B0BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarApp.Infrastructure", "CarApp.Infrastructure\CarApp.Infrastructure.csproj", "{953B6DF1-178C-4BE9-AB13-E70649C4E576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarApp.Infrastructure", "CarApp.Infrastructure\CarApp.Infrastructure.csproj", "{953B6DF1-178C-4BE9-AB13-E70649C4E576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarApp.Data", "CarApp.Data\CarApp.Data.csproj", "{7F9B6072-681F-4A64-B721-EBF4B601D8C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarApp.Data", "CarApp.Data\CarApp.Data.csproj", "{7F9B6072-681F-4A64-B721-EBF4B601D8C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

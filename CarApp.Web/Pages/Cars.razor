@@ -1,0 +1,56 @@
+﻿@page "/cars"
+@using CarApp.Data.DbEntities;
+@inject IUnitOfWork _unitOfWork
+<h3>Cars</h3>
+<a href="/cars/add" class="btn btn-outline-dark my-2">Add more</a>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Make</th>
+                    <th>Price</th>
+                    <th>Year</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in cars)
+                {
+                    <tr>
+                        <td>@car.Model</td>
+                        <td>@car.Make</td>
+                        <td>@car.Price</td>
+                        <td>@car.Year</td>
+                        <td>
+                            <a href="/cars/edit/@car.ID" class="btn btn-success">Edit</a>
+                            <a class="btn btn-danger" @onclick="async ()=> await Delete(car)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<CarModel> cars = new();
+
+    private async Task Delete(CarModel car)
+    {
+        if (_unitOfWork.CarRepository.GetFirstOrDefault(x=>x.ID==car.ID, tracked: false) != null)
+        {
+            _unitOfWork.CarRepository.Remove(car);
+            await _unitOfWork.Save();
+        cars = _unitOfWork.CarRepository.GetAll().ToList();
+        }
+
+    }
+
+    protected override void OnInitialized()
+    {
+        cars = _unitOfWork.CarRepository.GetAll().ToList();
+        base.OnInitialized();
+    }
+}

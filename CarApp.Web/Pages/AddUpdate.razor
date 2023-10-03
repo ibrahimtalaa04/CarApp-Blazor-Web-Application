@@ -1,0 +1,126 @@
+﻿@page "/cars/add"
+@page "/cars/edit/{CarId:int}"
+@using CarApp.Data.DbEntities;
+@inject IUnitOfWork _unitOfWork
+<PageTitle>@Title</PageTitle>
+
+<h3>@Title</h3>
+<a href="/cars" class="btn btn-outline-dark">Show All</a>
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="@car" OnValidSubmit="Save">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="Make">Make</label>
+                <InputText class="form-control" @bind-Value="car.Make" />
+                <ValidationMessage For="@(()=>car.Make)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Model">Model</label>
+                <InputText class="form-control" @bind-Value="car.Model" />
+                <ValidationMessage For="@(()=>car.Model)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Color">Color</label>
+                <InputText class="form-control" @bind-Value="car.Color" />
+                <ValidationMessage For="@(()=>car.Color)" />
+            </div>
+
+            <div class="form-group">
+                <label for="FuelType">Fuel Type</label>
+                <InputText class="form-control" @bind-Value="car.FuelType" />
+                <ValidationMessage For="@(()=>car.FuelType)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Transmission">Transmission</label>
+                <InputText class="form-control" @bind-Value="car.Transmission" />
+                <ValidationMessage For="@(()=>car.Transmission)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Year">Year</label>
+                <input class="form-control" @bind="@car.Year" />
+                <ValidationMessage For="@(()=>car.Year)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Mileage">Mileage</label>
+                <input class="form-control" @bind="@car.Mileage" />
+                <ValidationMessage For="@(()=>car.Mileage)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input class="form-control" @bind="@car.Price" />
+                <ValidationMessage For="@(()=>car.Price)" />
+            </div>
+
+            <div class="form-group">
+                <label for="EngineSize">EngineSize</label>
+                <input class="form-control" @bind="@car.EngineSize" />
+                <ValidationMessage For="@(()=>car.EngineSize)" />
+            </div>
+
+            <div class="my-2">
+                @message
+            </div>
+
+            <div class="my-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CarId { get; set; }
+    private string message = string.Empty;
+    CarModel car = new();
+    private string Title = "Add Car";
+
+
+    private void Save()
+    {
+        message = "wait...";
+        if(CarId != 0)
+        {
+            if (_unitOfWork.CarRepository.GetFirstOrDefault(x => x.ID == CarId, tracked:false)!=null)
+            {
+                _unitOfWork.CarRepository.Update(car);
+                _unitOfWork.Save();
+                message = "Sucessfully Updated";
+            }
+            else
+            {
+                message = "Could not load this item!";
+            }
+        }
+        else
+        {
+            _unitOfWork.CarRepository.Add(car);
+                _unitOfWork.Save();
+            message = "Sucessfully Added";
+            car = new();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        if (CarId != 0)
+        {
+            Title = "Update Car";
+            car = _unitOfWork.CarRepository.GetFirstOrDefault(x => x.ID == CarId);
+        }
+        else
+        {
+            Title = "Add Car";
+            
+        }
+        base.OnInitialized();
+    }
+}
